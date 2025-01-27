@@ -12,14 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('valoraciones', function (Blueprint $table) {
-            $table->id('id_valoracion');
+            $table->id();
             $table->unsignedBigInteger('id_producto');
-            $table->unsignedBigInteger('id_usuario');
             $table->tinyInteger('calificacion')->unsigned(); // Puntuación de 1 a 5
             $table->text('comentario')->nullable();
             $table->timestamps(); 
 
-            $table->foreign('id_producto')->references('id_producto')->on('productos')->onDelete('cascade');
+            $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');
         });
     }
 
