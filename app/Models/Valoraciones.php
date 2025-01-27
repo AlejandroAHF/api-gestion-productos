@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Valoraciones extends Authenticatable implements JWTSubject
+class Valoraciones extends Authenticatable
 {
     protected $table = 'valoraciones';
 
@@ -17,15 +16,5 @@ class Valoraciones extends Authenticatable implements JWTSubject
     public function Productos()
     {
         return $this->belongsTo(Productos::class, 'id_producto');
-    }
-
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
     }
 }
