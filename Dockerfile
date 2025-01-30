@@ -1,4 +1,4 @@
-# Usa una imagen oficial de PHP con Apache
+# Usa la imagen oficial de PHP con Apache
 FROM php:8.2-apache
 
 # Instala extensiones necesarias para Laravel
@@ -29,6 +29,13 @@ RUN npm install && npm run build
 
 # Establece permisos correctos
 RUN chmod -R 777 storage bootstrap/cache
+
+# Configura Apache para servir el directorio `public/`
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's|<Directory /var/www/html>|<Directory /var/www/html/public>|' /etc/apache2/sites-available/000-default.conf
+
+# Habilita el módulo de reescritura de Apache
+RUN a2enmod rewrite
 
 # Expone el puerto 80
 EXPOSE 80
